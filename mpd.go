@@ -61,17 +61,17 @@ var (
 
 // MPD represents root XML element.
 type MPD struct {
-	XMLNS                      *string `xml:"xmlns,attr"`
-	Type                       *string `xml:"type,attr"`
-	MinimumUpdatePeriod        *string `xml:"minimumUpdatePeriod,attr"`
-	AvailabilityStartTime      *string `xml:"availabilityStartTime,attr"`
-	MediaPresentationDuration  *string `xml:"mediaPresentationDuration,attr"`
-	MinBufferTime              *string `xml:"minBufferTime,attr"`
-	SuggestedPresentationDelay *string `xml:"suggestedPresentationDelay,attr"`
-	TimeShiftBufferDepth       *string `xml:"timeShiftBufferDepth,attr"`
-	PublishTime                *string `xml:"publishTime,attr"`
-	Profiles                   string  `xml:"profiles,attr"`
-	Period                     *Period `xml:"Period,omitempty"`
+	XMLNS                      *string   `xml:"xmlns,attr"`
+	Type                       *string   `xml:"type,attr"`
+	MinimumUpdatePeriod        *string   `xml:"minimumUpdatePeriod,attr"`
+	AvailabilityStartTime      *string   `xml:"availabilityStartTime,attr"`
+	MediaPresentationDuration  *string   `xml:"mediaPresentationDuration,attr"`
+	MinBufferTime              *string   `xml:"minBufferTime,attr"`
+	SuggestedPresentationDelay *string   `xml:"suggestedPresentationDelay,attr"`
+	TimeShiftBufferDepth       *string   `xml:"timeShiftBufferDepth,attr"`
+	PublishTime                *string   `xml:"publishTime,attr"`
+	Profiles                   string    `xml:"profiles,attr"`
+	Periods                    []*Period `xml:"Period,omitempty"`
 }
 
 // Do not try to use encoding.TextMarshaler and encoding.TextUnmarshaler:
@@ -132,19 +132,20 @@ type AdaptationSet struct {
 	Lang                    *string          `xml:"lang,attr"`
 	ContentProtections      []Descriptor     `xml:"ContentProtection,omitempty"`
 	Representations         []Representation `xml:"Representation,omitempty"`
+	SegmentTemplate         *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
 }
 
 // Representation represents XSD's RepresentationType.
 type Representation struct {
-	ID                 *string          `xml:"id,attr"`
-	Width              *uint64          `xml:"width,attr"`
-	Height             *uint64          `xml:"height,attr"`
-	FrameRate          *string          `xml:"frameRate,attr"`
-	Bandwidth          *uint64          `xml:"bandwidth,attr"`
-	AudioSamplingRate  *string          `xml:"audioSamplingRate,attr"`
-	Codecs             *string          `xml:"codecs,attr"`
-	ContentProtections []Descriptor     `xml:"ContentProtection,omitempty"`
-	SegmentTemplate    *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
+	ID                 *string      `xml:"id,attr"`
+	Width              *uint64      `xml:"width,attr"`
+	Height             *uint64      `xml:"height,attr"`
+	FrameRate          *string      `xml:"frameRate,attr"`
+	Bandwidth          *uint64      `xml:"bandwidth,attr"`
+	AudioSamplingRate  *string      `xml:"audioSamplingRate,attr"`
+	Codecs             *string      `xml:"codecs,attr"`
+	ContentProtections []Descriptor `xml:"ContentProtection,omitempty"`
+	//SegmentTemplate    *SegmentTemplate `xml:"SegmentTemplate,omitempty"`
 }
 
 // Descriptor represents XSD's DescriptorType.
